@@ -11,7 +11,7 @@
                         @csrf
 
                         {{-- auto assign role (customer) --}}
-                        <input type="hidden" id="role" name="role" value="customer">
+                        <input type="hidden" id="role" name="role" value="buyer">
                         @error('role')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -36,12 +36,12 @@
 
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md-6">
-                                <input style="height:4rem" id="no_hp" type="text"
-                                    class="form-control @error('no_hp') is-invalid @enderror" name="no_hp"
-                                    value="{{ old('no_hp') }}" required autocomplete="no_hp" autofocus
+                                <input style="height:4rem" id="no_telepon" type="text"
+                                    class="form-control @error('no_telepon') is-invalid @enderror" name="no_telepon"
+                                    value="{{ old('no_telepon') }}" required autocomplete="no_telepon" autofocus
                                     placeholder="KOSONG DELAPAN BERAPA?">
 
-                                @error('no_hp')
+                                @error('no_telepon')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
@@ -51,12 +51,12 @@
 
                         <div class="row mb-3 justify-content-center">
                             <div class="col-md-6">
-                                <input style="height:4rem" id="lokasi" type="text"
-                                    class="form-control @error('lokasi') is-invalid @enderror" name="lokasi"
-                                    value="{{ old('lokasi') }}" required autocomplete="lokasi" autofocus
+                                <input style="height:4rem" id="alamat" type="text"
+                                    class="form-control @error('alamat') is-invalid @enderror" name="alamat"
+                                    value="{{ old('alamat') }}" required autocomplete="alamat" autofocus
                                     placeholder="SERLOK?">
 
-                                @error('lokasi')
+                                @error('alamat')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
