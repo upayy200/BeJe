@@ -5,6 +5,7 @@ use App\Http\Controllers\Penjualan\ShopController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,6 +19,12 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', 'ShopController@index')->name('homePage');
+
+Route::get('/home', function () {
+    return view('home');
+});
+
+Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 Auth::routes();
 
