@@ -39,7 +39,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('shop')->group(function () {
         Route::get('/', [ShopController::class, 'index'])->name('index');
 
-        // Route::get('/', [ProductController::class, 'index'])->name('seller.index');
+        Route::get('/', [ProductController::class, 'index'])->name('seller.index');
 
         Route::get('/tambah-produk', [ProductController::class, 'create'])->name('seller.create');
         Route::post('/tambah-produk/store', [ProductController::class, 'store'])->name('seller.store');

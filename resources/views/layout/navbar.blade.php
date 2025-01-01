@@ -2,9 +2,12 @@
 <nav class="navbar navbar-expand-lg fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">
-            <img alt="Apple logo" src="https://storage.googleapis.com/a1aa/image/P3m8XWgWc3ZWHdnkjelWw10kSrO9coKfBF4WxesX8bfHEuvOB.jpg" width="24" height="24"/>
+            <img alt="Apple logo"
+                src="https://storage.googleapis.com/a1aa/image/P3m8XWgWc3ZWHdnkjelWw10kSrO9coKfBF4WxesX8bfHEuvOB.jpg"
+                width="24" height="24" />
         </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
@@ -15,9 +18,19 @@
                 <li class="nav-item"><a class="nav-link" href="#">Kecantikan</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Mainan</a></li>
                 <li class="nav-item"><a class="nav-link" href="#">Dukungan</a></li>
+                @guest
+                    <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
+                @endguest
+                @auth
+                    <form action="{{ route('logout') }}" method="POST">
+                        @csrf
+                        <button type="submit">LOGOUT</button>
+                    </form>
+                @endauth
             </ul>
             <form class="d-flex" action="{{ route('search') }}" method="GET">
-                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search" required>
+                <input class="form-control me-2" type="search" name="query" placeholder="Search" aria-label="Search"
+                    required>
                 <button class="btn btn-outline-success" type="submit"><i class="fas fa-search"></i></button>
             </form>
         </div>
