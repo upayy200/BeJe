@@ -20,7 +20,14 @@ class ProductController extends Controller
             ->paginate(15);
 
         $categories = Kategori::all();
-        return view('seller.index', compact('products', 'categories'));
+
+        if (Auth::check() && Auth::user()->role == 'seller') {
+            return view('seller.index', compact('categories', 'products'));
+        } elseif (Auth::check() && Auth::user()->role == 'buyer') {
+            return view('shop.home');
+        } else {
+            return view('index');
+        }
     }
 
     /**
