@@ -15,14 +15,26 @@ class UserSeeder extends Seeder
      */
     public function run()
     {
-        $superAdmin = [
+        $admin = [
             'username' => 'opadtualima',
             'name' => 'Super Admin',
-            'email' => 'superadmin@opadtualima.id',
+            'email' => 'admin@opadtualima.id',
             'password' => Hash::make('opadtualima'),
-            'role' => 'super_admin',
+            'role' => 'admin',
         ];
 
-        User::create($superAdmin);
+        User::create($admin);
+
+        $seller = [
+            'username' => 'bjdulu',
+            'name' => 'Pedagang 425',
+            'email' => 'seller@BJ.id',
+            'password' => Hash::make('beje1234'),
+            'role' => 'seller',
+            'alamat' => 'Antapani',
+            'no_telepon' => '911',
+        ];
+
+        User::create($seller);
     }
 }
