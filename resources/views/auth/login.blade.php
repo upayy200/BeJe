@@ -1,79 +1,90 @@
-@extends('layout.auth_layout')
 @section('title', 'Login')
 
-<div style="margin-top:12rem; margin-bottom: 8rem" class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-9">
-            <h1 style="font-size: 4rem" class="text-center">KAYU MASUK -> LOG IN</h1>
-            <div class="card-transparent mt-5">
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-                        <div class="row mb-3 justify-content-center">
-                            <div class="col-md-6">
-                                <input style="height:4rem" id="username" type="text"
-                                    class="form-control @error('username') is-invalid @enderror" name="username"
-                                    value="{{ old('username') }}" required autocomplete="username" autofocus
-                                    placeholder="NGARAN">
 
-                                @error('username')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="row mb-3 mt-5 justify-content-center">
-
-                            <div class="col-md-6">
-                                <input style="height:4rem" id="password" type="password"
-                                    class="form-control @error('password') is-invalid @enderror" name="password"
-                                    required autocomplete="current-password" placeholder="PW">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-3 text-center justify-content-center">
-                            <div class="col-md-3">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember"
-                                        {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label mt-1" for="remember">
-                                        &nbsp;&nbsp;{{ __('Remember Me') }}
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-3">
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn_link_custom" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="row mb-0 justify-content-center">
-                            <div class="col-md-6">
-                                <button style="height: 4rem; font-size: 1.5rem;color: #ff0000; border-radius:1rem"
-                                    type="submit" class="btn btn-block login_btn">
-                                    {{ __('ASUP') }}
-                                </button>
-                                <a href="{{ route('register') }}"
-                                    style="height: 4rem; font-size: 1.5rem;color: #000000; border-radius:1rem"
-                                    class="btn btn-block register_btn mt-5">
-                                    {{ __('CAN BOGA AKUN') }}
-                                </a>
-                            </div>
-                        </div>
-                    </form>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | Register Beje</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&amp;display=swap" rel="stylesheet"/>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+    body {
+        Helvetica, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, sans-serif, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Open Sans, Helvetica Neue, sans-serif;
+    }
+    </style>
+</head>
+<body class="bg-black flex items-center justify-center min-h-screen">
+    <div class="absolute inset-0">
+        <img alt="Background image of purple shoes" class="w-full h-full object-cover opacity-20" 
+            src="https://storage.googleapis.com/a1aa/image/20yYNgDfWv0oXSPeYnXeeNXqXQRvDwftSJW3auDDwS5rJvzeE.jpg" />
+    </div>
+    <div class="relative z-10 w-full max-w-md mx-auto">
+        <!-- Login Card -->
+        <div class="bg-white p-8 shadow-lg rounded-lg mb-8">
+        <h1 class="font-serif text-4xl md:text-4xl italic mb-1">Login</h1>
+            <p class="text-gray-600 mb-4">Engiter your email and password below if you already have an account.</p>
+            <form>
+                <div class="mb-4">
+                    <input class="w-full p-3 border border-gray-300 rounded" placeholder="Email Address" type="email"/>
                 </div>
-            </div>
+                <div class="mb-4 relative">
+                    <input id="password" class="w-full p-3 border border-gray-300 rounded pr-10" 
+                           placeholder="Password" type="password"/>
+                    <button id="togglePassword" class="absolute right-3 top-3 text-gray-600 focus:outline-none" 
+                            type="button">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <div class="flex justify-end items-center mb-4">
+                    @if (Route::has('password.request'))
+                    <a 
+                    class="relative transition-all duration-300 ease-in-out inline-flex items-center justify-center whitespace-nowrap rounded-none ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-primary hover:text-black-600 hover:underline uppercase !px-0 font-normal px-3 text-xs float-right my-3 border-none 
+                    before:content-[''] before:absolute before:bottom-0 before:left-0 before:w-full before:h-[2px] before:bg-black before:scale-x-0 before:origin-center hover:before:scale-x-100 before:transition-transform before:duration-300"
+                    href="{{ route('password.request') }}" 
+                    aria-haspopup="dialog" 
+                    aria-expanded="false" 
+                    aria-controls="radix-:Redrh9:" 
+                    data-state="closed">
+                    Forgot Password
+                    </a>
+
+                    </a>
+
+                    @endif
+                </div>
+                <button class="w-full bg-black text-white p-3 rounded" type="submit">Login</button>
+            </form>
+        </div>
+        <!-- Register Card -->
+        <div class="bg-white p-8 shadow-lg rounded-lg">
+        <h2 class="font-serif text-3xl md:text-4xl italic mb-1">Register</h2>
+            <p class="text-gray-600 mb-4">Don't have an account? Click the button below to register.</p>
+            <a href="{{ route('register') }}">
+                <button class="w-full bg-black text-white p-3 rounded">Register</button>
+            </a>
         </div>
     </div>
-</div>
+    <script>
+        // Show/Hide Password Functionality
+        const togglePassword = document.getElementById("togglePassword");
+        const passwordInput = document.getElementById("password");
+        
+        togglePassword.addEventListener("click", function () {
+            // Toggle input type
+            const type = passwordInput.type === "password" ? "text" : "password";
+            passwordInput.type = type;
+
+            // Toggle icon
+            this.querySelector("i").classList.toggle("fa-eye");
+            this.querySelector("i").classList.toggle("fa-eye-slash");
+
+            // Add animation to the password field
+            passwordInput.classList.add("transition", "duration-300");
+        });
+    </script>
+</body>
+</html>
