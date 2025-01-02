@@ -26,6 +26,10 @@ use App\Http\Controllers\SearchController;
 
 Route::get('/', 'ShopController@index')->name('homePage');
 
+Route::get('/list', function () {
+    return view('shop.list');
+});
+
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 // rute global end
