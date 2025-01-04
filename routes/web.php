@@ -38,8 +38,8 @@ Route::get('/detail', function () {
     return view('shop.detail');
 });
 
-Route::get('/co', function () {
-    return view('shop.co');
+Route::get('/checkout', function () {
+    return view('shop.checkout');
 });
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
