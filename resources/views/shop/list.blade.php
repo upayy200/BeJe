@@ -31,7 +31,7 @@
 </style>
 
 <div class="container my-5">
-    <h1 class="text-center mb-4">Daftar Produk</h1>
+    <h1 class="text-center mb-4 font-weight-bold">Daftar Produk</h1>
     
     <!-- Filter dan Pencarian -->
     <div class="row mb-4">
@@ -73,7 +73,7 @@
                         'name' => 'LuxeFoam Sesderma',
                         'price' => 100000,
                         'description' => 'Sabun cair berbentuk busa lembut dengan aroma segar.',
-                        'image' => asset('product/1.jpg'),
+                        'image' => asset('product/1.1.jpg'),
                         'category' => 'kecantikan',
                     ],
                     [
