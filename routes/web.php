@@ -30,6 +30,18 @@ Route::get('/list', function () {
     return view('shop.list');
 });
 
+Route::get('/cart', function () {
+    return view('shop.cart');
+});
+
+Route::get('/detail', function () {
+    return view('shop.detail');
+});
+
+Route::get('/co', function () {
+    return view('shop.co');
+});
+
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
 // rute global end
