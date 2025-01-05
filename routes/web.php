@@ -26,6 +26,9 @@ use App\Http\Controllers\SearchController;
 
 Route::get('/', 'ShopController@index')->name('homePage');
 
+Route::get('/profile', function () {
+    return view('auth.profile');
+});
 Route::get('/list', function () {
     return view('shop.list');
 });
