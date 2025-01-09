@@ -29,9 +29,8 @@ Route::get('/', 'ShopController@index')->name('homePage');
 Route::get('/profile', function () {
     return view('auth.profile');
 });
-Route::get('/list', function () {
-    return view('shop.list');
-});
+
+Route::get('/list', [ProductController::class, 'list'])->name('shop.list');
 
 Route::get('/cart', function () {
     return view('shop.cart');
@@ -40,6 +39,8 @@ Route::get('/cart', function () {
 Route::get('/detail', function () {
     return view('shop.detail');
 });
+
+Route::get('/detail-product/{id}', [ProductController::class, 'detail'])->name('shop.detail');
 
 Route::get('/checkout', function () {
     return view('shop.checkout');

@@ -3,8 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Auth\Notifications\VerifyEmail;
-use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Support\Facades\View;
+use App\Models\Kategori;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,11 +26,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-        VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
-            return (new MailMessage)
-                ->subject('Verifikasi Akun Bitesy Kamu')
-                ->line('Klik Tombol Dibawah Untuk Verifikasi Akun!')
-                ->action('Verifikasi Akun', $url);
+        // Share 'kategoris' with all views
+        View::composer('layout.app', function ($view) {
+            $view->with('kategoris', Kategori::all());
         });
     }
 }
