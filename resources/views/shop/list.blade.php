@@ -61,7 +61,7 @@
             @foreach ($products as $product)
                 <div class="col-sm-6 col-md-3 mb-4 product-item-wrapper" data-category="{{ $product->kategoris_id }}">
                     <div class="product-item">
-                        <img src="{{ isset($product->foto) ? Storage::url($product->foto) : asset('img/sayuran.png') }}">
+                        <img src="{{ isset($product->foto) ? asset($product->foto) : asset('img/sayuran.png') }}">
                         <h5 class="text-center mt-2">{{ $product->nama }}</h5>
                         <p class="text-center"><strong>Rp {{ number_format($product->harga, 0, ',', '.') }}</strong></p>
                         <p class="text-center"><strong>Stok: {{ number_format($product->stok, 0, ',', '.') }}</strong></p>

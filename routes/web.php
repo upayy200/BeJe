@@ -1,64 +1,58 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\ShopController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Controllers\SearchController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
+| Define the web routes for your application here. These routes are loaded
+| by the RouteServiceProvider and contain the "web" middleware group.
 |
 */
 
-// rute global start
-
-// Route::get('/', function () {
-//     return Auth::check() ? redirect()->route('seller.index') : view('index');
-// })->name('homePage');
-
-Route::get('/', 'ShopController@index')->name('homePage');
+// Public Routes (Global)
+Route::get('/', [ShopController::class, 'index'])->name('homePage');
 
 Route::get('/profile', function () {
     return view('auth.profile');
-});
+})->name('profile');
 
 Route::get('/list', [ProductController::class, 'list'])->name('shop.list');
 
 Route::get('/cart', function () {
     return view('shop.cart');
-});
+})->name('shop.cart');
 
 Route::get('/detail', function () {
     return view('shop.detail');
-});
+})->name('shop.detail.basic');
 
 Route::get('/detail-product/{id}', [ProductController::class, 'detail'])->name('shop.detail');
 
 Route::get('/checkout', function () {
     return view('shop.checkout');
-});
+})->name('shop.checkout');
 
 Route::get('/search', [SearchController::class, 'index'])->name('search');
 
-// rute global end
+// Cart Actions
+Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('cart.add');
+Route::post('/delete-from-cart', [CartController::class, 'deleteFromCart'])->name('cart.delete');
 
-
-// rute auth start
-
+// Authenticated Routes
 Auth::routes();
 
 Route::middleware(['auth'])->group(function () {
+    // Seller Routes
     Route::prefix('shop')->group(function () {
-        Route::get('/', [ShopController::class, 'index'])->name('index');
-
         Route::get('/', [ProductController::class, 'index'])->name('seller.index');
 
         Route::get('/tambah-produk', [ProductController::class, 'create'])->name('seller.create');
@@ -67,5 +61,3 @@ Route::middleware(['auth'])->group(function () {
         Route::delete('/products/{product}', [ProductController::class, 'destroy'])->name('seller.destroy');
     });
 });
-
-// rute auth start

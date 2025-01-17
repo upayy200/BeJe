@@ -1,3 +1,8 @@
+<?php 
+
+use App\Models\Cart;
+
+?>
 @extends('layout.app')
 
 @section('title', 'Keranjang')
@@ -209,33 +214,37 @@
             <!-- Daftar Produk -->
             <div id="cart-items">
                 @php
-                    $products = [
-                        [
-                            'name' => 'ErgoChair Flex',
-                            'price' => 200000,
-                            'description' =>
-                                'Kursi ergonomis dengan desain modern yang nyaman digunakan untuk berbagai aktivitas.',
-                            'image' => asset('product/7.jpg'),
-                        ],
-                        [
-                            'name' => 'GlamStiletto Elegance',
-                            'price' => 350000,
-                            'description' => 'Sepatu high heels elegan dengan desain yang stylish.',
-                            'image' => asset('product/3.jpg'),
-                        ],
-                        [
-                            'name' => 'InstaSnap Retro 300',
-                            'price' => 3500000,
-                            'description' => 'Kamera polaroid instan yang praktis dengan fitur pencetakan langsung.',
-                            'image' => asset('product/4.jpg'),
-                        ],
-                        [
-                            'name' => 'LuxeFoam Sesderma',
-                            'price' => 100000,
-                            'description' => 'Sabun cair berbentuk busa lembut dengan aroma segar.',
-                            'image' => asset('product/1.1.jpg'),
-                        ],
-                    ];
+                    // $products = [
+                    //     [
+                    //         'name' => 'ErgoChair Flex',
+                    //         'price' => 200000,
+                    //         'description' =>
+                    //             'Kursi ergonomis dengan desain modern yang nyaman digunakan untuk berbagai aktivitas.',
+                    //         'image' => asset('product/7.jpg'),
+                    //     ],
+                    //     [
+                    //         'name' => 'GlamStiletto Elegance',
+                    //         'price' => 350000,
+                    //         'description' => 'Sepatu high heels elegan dengan desain yang stylish.',
+                    //         'image' => asset('product/3.jpg'),
+                    //     ],
+                    //     [
+                    //         'name' => 'InstaSnap Retro 300',
+                    //         'price' => 3500000,
+                    //         'description' => 'Kamera polaroid instan yang praktis dengan fitur pencetakan langsung.',
+                    //         'image' => asset('product/4.jpg'),
+                    //     ],
+                    //     [
+                    //         'name' => 'LuxeFoam Sesderma',
+                    //         'price' => 100000,
+                    //         'description' => 'Sabun cair berbentuk busa lembut dengan aroma segar.',
+                    //         'image' => asset('product/1.1.jpg'),
+                    //     ],
+                    // ];
+                    $products = Cart::where('user_id', Auth::id())
+        ->with('product') // Pastikan ada relasi dengan model `Product`
+        ->get();
+
                 @endphp
 
                 @foreach ($products as $product)
@@ -247,7 +256,7 @@
                         </div>
                         <div class="item-actions">
                             <input type="number" value="1" min="1">
-                            <button>Hapus</button>
+                            <button onclick="hapus('{{ $product['id'] }}')">Hapus</button>
                         </div>
                     </div>
                 @endforeach
@@ -291,6 +300,27 @@
                 updateTotalPrice();
             });
         });
+
+        function hapus(id)
+        {
+            fetch('{{ route('cart.delete') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                id: id
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);            
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+        }
 
         // Inisialisasi total harga saat halaman dimuat
         updateTotalPrice();

@@ -220,7 +220,7 @@
                     <div class="slider-container">
                         <div class="slide">
                             <img
-                                src="{{ isset($products->foto) ? Storage::url($products->foto) : asset('img/sayuran.png') }}">
+                                src="{{ isset($products->foto) ? asset($products->foto) : asset('img/sayuran.png') }}">
                         </div>
                     </div>
                 </div>
@@ -261,7 +261,7 @@
                         <button class="buy-now">Buy Now</button>
                     @endguest
                     @if (Auth::check() && Auth::user()->role == 'buyer')
-                        <button class="add-to-cart">Add to Cart</button>
+                        <button class="add-to-cart" id="add_to_cart" >Add to Cart</button>
                     @endif
 
                 </div>
@@ -375,5 +375,40 @@
                 quantityInput.value = 1;
             }
         }
+
+        document.querySelector('.add-to-cart').addEventListener('click', function () {
+    
+        const productId = {{ $products->id }};
+        const quantity = document.getElementById('quantity').value;
+
+
+        fetch('{{ route('cart.add') }}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}'
+            },
+            body: JSON.stringify({
+                product_id: productId,
+                quantity: quantity,
+                name: '{{ $products->nama }}',
+                price: {{ $products->harga }},
+                image: '{{ $products->foto }}'
+            })
+        })
+        .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+        console.log(data.data);
+        // Redirect ke halaman cart setelah berhasil
+        if (data.success) {
+            window.location.href = '{{ route('shop.cart') }}';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+    });
+
     </script>
 @endsection

@@ -15,7 +15,7 @@
     <nav class="navbar navbar-expand-lg fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="/">
-                <img alt="Beje Logo" src="icon/logo.jpg" width="50" height="18" />
+                <img alt="Beje Logo" src="{{ asset('icon/logo.jpg') }}" width="50" height="18" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
